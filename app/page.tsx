@@ -93,9 +93,9 @@ export default function Home() {
       <div className="max-w-4xl mx-auto">
          {/* Header */}
         <div className="text-center mb-8">
-          <h1 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-2">Syllabus Learning Assistant</h1>
+          <h1 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-2">Syllab.ai</h1>
           <p className="text-lg text-gray-600">
-            Upload your syllabus to get personalized video recommendations and a detailed study guide
+            Upload your syllabus to get personalized video recommendations and a detailed study guide with Syllab.ai
           </p>
         </div>
 

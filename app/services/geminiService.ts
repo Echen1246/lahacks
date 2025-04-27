@@ -103,13 +103,15 @@ export async function generateStudyGuide(syllabusText: string): Promise<StudyGui
       ${syllabusText}
 
       Based on this syllabus, create a comprehensive study guide that:
-      1. Outlines all the key topics in chronological order
-      2. Provides explanations for each topic
-      3. Includes learning objectives for each section
+      1. Identifies the distinct modules, weeks, or logical sections presented in the syllabus.
+      2. For EACH distinct module/week/section identified, creates a separate entry in the "sections" array below.
+      3. Within each section entry, outlines the key topics covered in that specific module/week/section in chronological order.
+      4. Provides explanations for each topic.
+      5. Includes learning objectives for each topic (if available in the syllabus or inferrable).
 
-      Return the result as a JSON object with the following format:
+      Return the result as a JSON object with the following format. Ensure EACH logical unit (module, week, etc.) from the syllabus gets its own object within the "sections" array:
       {
-        "title": "Study Guide for [Course Name]",
+        "title": "Study Guide for [Course Name Based on Syllabus]",
         "sections": [
           {
             "sectionTitle": "Section title",

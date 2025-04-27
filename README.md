@@ -66,12 +66,19 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 
 ## Deployment
 
-The easiest way to deploy this app is with Vercel:
+The recommended way to deploy this Next.js application is using [Vercel](https://vercel.com/).
 
-1. Push your code to a Git repository (GitHub, GitLab, BitBucket)
-2. Import the project in Vercel
-3. Add your environment variables (NEXT_PUBLIC_GEMINI_API_KEY)
-4. Deploy
+1. Push your code to a Git repository (e.g., GitHub, GitLab, Bitbucket).
+2. **Sign up or Log in** to Vercel using your Git provider account.
+3. **Import Project**: Click "Add New..." > "Project" and select the Git repository you pushed your code to.
+4. **Configure Project**: Vercel should automatically detect that this is a Next.js project and configure the build settings correctly.
+5. **Add Environment Variables**: Navigate to the project settings > "Environment Variables". Add the following variables:
+   - `NEXT_PUBLIC_GEMINI_API_KEY`: Your Google Gemini API key.
+   - `NEXT_PUBLIC_YOUTUBE_API_KEY`: Your YouTube Data API v3 key.
+   *Ensure these are set for all environments (Production, Preview, Development).* 
+6. **Deploy**: Click the "Deploy" button. Vercel will build and deploy your application.
+
+Your site will be deployed to a `.vercel.app` URL. You can also add a custom domain later through the Vercel dashboard.
 
 ## License
 
