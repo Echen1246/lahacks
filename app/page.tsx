@@ -93,7 +93,11 @@ export default function Home() {
       <div className="max-w-4xl mx-auto">
          {/* Header */}
         <div className="text-center mb-8">
-          <h1 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-2">Syllab.ai</h1>
+          {/* Centered container for the enlarged icon */}
+          <div className="flex justify-center mb-4"> {/* Adjusted spacing */} 
+            {/* Icon - Assuming syla.svg is in /public - Enlarged further */}
+            <img src="/syla.svg" alt="Syllab.ai logo" className="h-40 w-40" /> {/* Increased size again */} 
+          </div>
           <p className="text-lg text-gray-600">
             Upload your syllabus to get personalized video recommendations and a detailed study guide with Syllab.ai
           </p>

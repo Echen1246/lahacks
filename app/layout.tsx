@@ -10,7 +10,7 @@ export const metadata: Metadata = {
   title: 'Syllab.ai',
   description: 'Generate study guides and video recommendations from your syllabus.',
   icons: {
-    icon: '/favicon.ico',
+    icon: '/syla.svg',
   },
 };
 

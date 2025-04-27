@@ -19,6 +19,7 @@ This application helps students learn from their course syllabi by extracting te
 
 - Node.js 18.17 or later
 - A Google Gemini API key
+- A YouTube Data API v3 key
 
 ### Installation
 
@@ -33,12 +34,14 @@ cd lahacks-app
 npm install
 ```
 
-3. Create a `.env.local` file in the root directory and add your Gemini API key:
+3. Create a `.env.local` file in the root directory and add your API keys:
 ```
 NEXT_PUBLIC_GEMINI_API_KEY=your_gemini_api_key_here
+NEXT_PUBLIC_YOUTUBE_API_KEY=your_youtube_api_key_here
 ```
 
 You can get a Gemini API key from the [Google AI Studio](https://makersuite.google.com/app/apikey).
+You can get a YouTube Data API key from the [Google Cloud Console](https://console.cloud.google.com/apis/library/youtube.googleapis.com).
 
 ### Running the Application
 
@@ -75,7 +78,7 @@ The recommended way to deploy this Next.js application is using [Vercel](https:/
 5. **Add Environment Variables**: Navigate to the project settings > "Environment Variables". Add the following variables:
    - `NEXT_PUBLIC_GEMINI_API_KEY`: Your Google Gemini API key.
    - `NEXT_PUBLIC_YOUTUBE_API_KEY`: Your YouTube Data API v3 key.
-   *Ensure these are set for all environments (Production, Preview, Development).* 
+   *Ensure these are set for all environments (Production, Preview, Development).*
 6. **Deploy**: Click the "Deploy" button. Vercel will build and deploy your application.
 
 Your site will be deployed to a `.vercel.app` URL. You can also add a custom domain later through the Vercel dashboard.
