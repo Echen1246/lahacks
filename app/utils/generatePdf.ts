@@ -30,7 +30,7 @@ export function generatePdf(studyGuide: StudyGuide | null, videoList: VideoRecom
     currentY = addTextWithWrap(doc, studyGuide.title || 'Study Guide', margin, currentY, maxWidth);
     currentY += 5; // Add some space
 
-    studyGuide.sections.forEach((section, secIndex) => {
+    studyGuide.sections.forEach((section) => {
       if (currentY > pageHeight - margin) {
         doc.addPage();
         currentY = margin;
@@ -39,7 +39,7 @@ export function generatePdf(studyGuide: StudyGuide | null, videoList: VideoRecom
       currentY = addTextWithWrap(doc, section.sectionTitle, margin, currentY, maxWidth);
       currentY += 3;
 
-      section.topics.forEach((topic, topIndex) => {
+      section.topics.forEach((topic) => {
         if (currentY > pageHeight - margin) {
           doc.addPage();
           currentY = margin;
@@ -77,7 +77,7 @@ export function generatePdf(studyGuide: StudyGuide | null, videoList: VideoRecom
     currentY = addTextWithWrap(doc, 'Video Recommendations', margin, currentY, maxWidth);
     currentY += 5;
 
-    videoList.forEach((video, index) => {
+    videoList.forEach((video) => {
       if (currentY > pageHeight - margin * 2) { // Check space for video entry
         doc.addPage();
         currentY = margin;

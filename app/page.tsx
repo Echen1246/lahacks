@@ -18,14 +18,14 @@ const stageNames = {
 };
 const totalStages = Object.keys(stageNames).length;
 
-// Import text extraction services only on client side
-let extractTextFromImage: (file: File) => Promise<string>;
-let extractTextFromPDF: (file: File) => Promise<string>;
+// Import text extraction services only on client side - Removed unused variables
+// let extractTextFromImage: (file: File) => Promise<string>;
+// let extractTextFromPDF: (file: File) => Promise<string>;
 
 export default function Home() {
   const [loading, setLoading] = useState(false);
   const [file, setFile] = useState<File | null>(null);
-  const [extractedText, setExtractedText] = useState<string | null>(null);
+  // const [extractedText, setExtractedText] = useState<string | null>(null); // Removed unused state
   const [videoList, setVideoList] = useState<VideoRecommendation[]>([]);
   const [studyGuide, setStudyGuide] = useState<StudyGuide | null>(null);
   const [activeTab, setActiveTab] = useState<'videos' | 'guide'>('guide'); // Default to guide tab
@@ -34,7 +34,7 @@ export default function Home() {
 
   // Handle text extraction completion - now triggers sequential generation
   const handleTextExtracted = async (text: string) => {
-    setExtractedText(text);
+    // setExtractedText(text); // Removed assignment to unused state
     setStudyGuide(null); // Clear previous results
     setVideoList([]);
     setError(null);
@@ -76,7 +76,7 @@ export default function Home() {
   const handleFileSelect = (selectedFile: File) => {
     setFile(selectedFile);
     setError(null);
-    setExtractedText(null);
+    // setExtractedText(null); // Removed assignment to unused state
     setVideoList([]);
     setStudyGuide(null);
     setProcessingStage(null); // Reset stage

@@ -53,7 +53,10 @@ export async function extractTextFromPDF(pdfFile: File): Promise<string> {
         console.log('Processing page', i);
         const page = await pdf.getPage(i);
         const textContent = await page.getTextContent();
-        const textItems = textContent.items.map((item: any) => item.str);
+        // Handle union type: Check if item has 'str' property
+        const textItems = textContent.items
+          .map((item) => ('str' in item ? item.str : '')) // Get str if TextItem, else empty string
+          .filter(str => str.trim().length > 0); // Filter out empty strings
         fullText += textItems.join(' ') + '\n';
       }
       
@@ -62,13 +65,15 @@ export async function extractTextFromPDF(pdfFile: File): Promise<string> {
       }
       
       return fullText;
-    } catch (error: any) {
+    } catch (error: unknown) {
       console.error('PDF parsing error:', error);
-      throw new Error(`PDF parsing error: ${error.message}`);
+      const message = error instanceof Error ? error.message : 'Unknown PDF parsing error';
+      throw new Error(`PDF parsing error: ${message}`);
     }
-  } catch (error: any) {
+  } catch (error: unknown) {
     console.error('Error extracting text from PDF:', error);
-    throw new Error('Failed to extract text from PDF');
+    const message = error instanceof Error ? error.message : 'Unknown error extracting PDF text';
+    throw new Error(`Failed to extract text from PDF: ${message}`);
   }
 }
 

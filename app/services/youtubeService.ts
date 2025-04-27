@@ -32,8 +32,13 @@ export async function findYouTubeVideoUrl(query: string): Promise<string> {
 
     console.warn(`No YouTube video found for query: "${query}"`);
     return ''; // No video found
-  } catch (error: any) {
-    console.error('Error searching YouTube:', error.response?.data || error.message);
+  } catch (error: unknown) {
+    // Log more specific Axios error details if available
+    if (axios.isAxiosError(error)) {
+      console.error('Axios error searching YouTube:', error.response?.status, error.response?.data || error.message);
+    } else {
+      console.error('Error searching YouTube:', error);
+    }
     // Don't throw an error, just return empty string so the app can continue
     return '';
   }

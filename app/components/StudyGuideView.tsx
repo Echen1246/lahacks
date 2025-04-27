@@ -1,4 +1,4 @@
-import { StudyGuide, StudySection } from '../services/geminiService';
+import { StudyGuide } from '../services/geminiService';
 import { useState } from 'react';
 
 interface StudyGuideViewProps {
