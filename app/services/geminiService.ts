@@ -6,32 +6,45 @@ import { findYouTubeVideoUrl } from './youtubeService'; // Import the new YouTub
 const genAI = new GoogleGenerativeAI(GEMINI_API_KEY);
 
 /**
- * Generate a chronological list of YouTube videos based on syllabus content,
+ * Generate a chronological list of YouTube videos based on Study Guide topics,
  * then search YouTube for actual video URLs.
+ * @param topics - An array of topics extracted from the generated Study Guide.
  */
-export async function generateVideoRecommendations(syllabusText: string): Promise<VideoRecommendation[]> {
+export async function generateVideoRecommendations(topics: StudyTopic[]): Promise<VideoRecommendation[]> {
   try {
+    if (!topics || topics.length === 0) {
+        console.warn('No topics provided for video recommendation generation.');
+        return [];
+    }
+
     const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash-latest" });
 
+    // Create a string representation of the topics for the prompt
+    const topicListString = topics.map((topic, index) => `${index + 1}. ${topic.name}`).join('\n');
+
+    // Updated prompt using the provided topics
     const prompt = `
-      Here is a syllabus text:
-
-      ${syllabusText}
-
-      Based on this syllabus, generate a chronological list of up to ${settings.maxVideos} YouTube video titles and descriptions
-      that would be helpful for learning the topics. Return the results as a JSON array with the following format:
+      Based on the following list of course topics extracted from a study guide:
+      
+      --- Topic List ---
+      ${topicListString}
+      --- End Topic List ---
+      
+      Generate a list of relevant YouTube video titles and descriptions that would help someone learn these specific topics.
+      Distribute approximately ${settings.maxVideos} video recommendations across these topics, focusing on the most helpful resources.
+      Maintain the original chronological order of the topics provided.
+      
+      Return the results as a JSON array with the following format (Do NOT include the videoUrl field):
       [
         {
-          "title": "Video title",
-          "description": "Short description of what this video covers",
-          "topicOrder": 1
+          "title": "Video title (related to one of the topics above)",
+          "description": "Short description explaining how this video relates to the specific topic",
+          "topicOrder": 1 // Sequential order reflecting the provided topic list
         }
       ]
-
-      Do NOT include a videoUrl field in the JSON response.
-      Ensure the videos are ordered to match the syllabus flow from beginning to end content.
     `;
 
+    console.log("Sending prompt to Gemini for video recommendations based on topics...");
     const result = await model.generateContent(prompt);
     const response = await result.response;
     const text = response.text();
@@ -51,13 +64,18 @@ export async function generateVideoRecommendations(syllabusText: string): Promis
         throw new Error('Failed to parse video recommendations JSON from Gemini response');
     }
 
+    console.log(`Received ${initialRecommendations.length} initial recommendations from Gemini.`);
+
     // Now, enrich recommendations with actual YouTube URLs
+    console.log('Starting YouTube search for video URLs...');
     const enrichedRecommendations: VideoRecommendation[] = await Promise.all(
       initialRecommendations.map(async (rec) => {
         const videoUrl = await findYouTubeVideoUrl(rec.title);
-        return { ...rec, videoUrl }; // Add the found videoUrl
+        console.log(`YouTube search for "${rec.title}": ${videoUrl || 'Not Found'}`);
+        return { ...rec, videoUrl };
       })
     );
+    console.log('Finished YouTube search.');
 
     return enrichedRecommendations;
 
