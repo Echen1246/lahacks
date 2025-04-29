@@ -1,5 +1,7 @@
 # Syllabus Learning Assistant
 
+URL: https://lahacks-kpg2-2cjvqzcg6-echen1246s-projects.vercel.app/
+
 This application helps students learn from their course syllabi by extracting text from uploaded syllabi (image, PDF, or text) and using Google's Gemini 2.0 Flash API to generate:
 
 1. A chronological list of YouTube videos covering the course topics
